@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>JS + CSS Clock</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -10,27 +12,23 @@
     <div class="clock">
       
       <div class="clock-face">
-        <div class="hand hour-hand"></div>
-        <div class="hand min-hand"></div>
+        <div class="hand hour-hand" id= "hour-hand"></div>
+        <div class="hand min-hand" id= "minute-hand"></div>
         <div class="hand second-hand"></div>
       </div>
     </div>
     <div class= 'digital'>
       <div class= 'time'>
-        <h1 class = 'hr'>
-          Hour
-        </h1>
-        <h2 class = 'min'>
-          Minutes
-        </h1>
-        <h3 class = 'sec'>
-          Seconds
-        </h3>
+        <h1 class = 'hr'></h1>
+        <h2>:</h2>
+        <h1 class = 'min'></h1>
+        <h3 class = 'sec'></h3>
       </div>
       
 
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&display=swap');
     html {
       background: #06131b url(https://wallpapercave.com/wp/wp2943085.jpg);
       background-size: cover;
@@ -70,8 +68,8 @@
 
     .hand {
       width: 50%;
-      height: 6px;
-      background: rgb(237, 241, 240);
+      height: 9px;
+      background: rgb(190 236 163);
       position: absolute;
       top: 50%;
       transform-origin: 100%;
@@ -81,12 +79,28 @@
       border-radius: 5px;
     }
 
+    #minute-hand{
+      position: absolute;
+      right: 50%;
+      display: inline;
+      width: 240px;
+      background: violet;
+    }
+
+    #hour-hand{
+      position: absolute;
+      right: 50%;
+      display: inline;
+      width: 240px;
+      background: rgb(245, 123, 66);
+    }
+
     .digital {
       color: yellowgreen;
       width: 32%;
-      height: 50%;
+      height: 32%;
       border: 20px solid rgb(134, 86, 245);
-      border-radius: 18%;
+      border-radius: 85px;
       margin: 50px auto;
       position: absolute;
       right: -25px;
@@ -97,16 +111,32 @@
 
     .time {
       display: inline-flex;
+      align-items: center;
+    }
+
+    .time h2{
+      font-size: 85px;
     }
 
     .hour{
-      padding: 16px;
+      margin-right: 5px
     }
     .min{
-      padding: 16px;
+      margin-left: 5px;
     }
     .sec{
-      padding: 16px;
+      margin-left: 13px;
+    }
+
+    .hr, .min {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 85px;
+    }
+
+    .sec {
+      font-family: 'Orbitron', sans-serif;
+      padding-top: 10%;
+      font-size: 45px;
     }
 
   </style>
@@ -116,6 +146,11 @@
     const secondHand = document.querySelector('.second-hand');
     const minsHand = document.querySelector('.min-hand');
     const hourHand = document.querySelector('.hour-hand');
+
+    const digiSec = document.querySelector('.sec');
+    const digiMin = document.querySelector('.min');
+    const digiHr = document.querySelector('.hr');
+
 
     function setDate(){
       const now = new Date();
@@ -131,6 +166,14 @@
       const hours = now.getHours();
       const hourDegrees = ((hours / 12) * 360) + 90; // 12hrs in 360deg 
       hourHand.style.transform = `rotate(${hourDegrees}deg)`;
+
+
+      
+      digiSec.innerText = seconds
+      
+      digiMin.innerText = minutes
+ 
+      digiHr.innerText = hours
     }
 
   setInterval(setDate, 1000);
