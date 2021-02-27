@@ -10,11 +10,11 @@
 
 
     <div class="clock">
-      
+
       <div class="clock-face">
         <div class="hand hour-hand" id= "hour-hand"></div>
         <div class="hand min-hand" id= "minute-hand"></div>
-        <div class="hand second-hand"></div>
+        <div class="hand second-hand" id = "sec-hand"></div>
       </div>
     </div>
     <div class= 'digital'>
@@ -24,7 +24,7 @@
         <h1 class = 'min'></h1>
         <h3 class = 'sec'></h3>
       </div>
-      
+
 
 
   <style>
@@ -67,10 +67,9 @@
     }
 
     .hand {
-      width: 50%;
+      
       height: 9px;
-      background: rgb(190 236 163);
-      position: absolute;
+      /* position: absolute; */
       top: 50%;
       transform-origin: 100%;
       transform: rotate(90deg);
@@ -83,16 +82,25 @@
       position: absolute;
       right: 50%;
       display: inline;
-      width: 240px;
-      background: violet;
+      width: 220px;
+      background: #ece71d;
     }
 
     #hour-hand{
       position: absolute;
       right: 50%;
       display: inline;
-      width: 240px;
-      background: rgb(245, 123, 66);
+      width: 150px;
+      background: #ece71d;
+    }
+
+    #sec-hand{
+      height: 3px;
+      position: absolute;
+      right: 50%;
+      display: inline;
+      width: 250px;
+      background: #722bbc;
     }
 
     .digital {
@@ -157,27 +165,32 @@
 
       const seconds = now.getSeconds();
       const secondsDegrees =  ((seconds / 60) * 360) + 90; // <<--- dividing seconds to get the angle
-      secondHand.style.transform = `rotate(${secondsDegrees}deg)`; //<<-- grabbing the secondHand div and apply transform
+       //<<-- grabbing the secondHand div and apply transform
+      seconds === 59 ? secondHand.removeAttribute(transform) : secondHand.style.transform = `rotate(${secondsDegrees}deg)`;
 
       const minutes = now.getMinutes();
-      const minutesDegrees = ((minutes / 60) * 360) + 90; // 60seconds in a minute 
+      const minutesDegrees = ((minutes / 60) * 360) + 90; // 60seconds in a minute
       minsHand.style.transform = `rotate(${minutesDegrees}deg)`;
 
       const hours = now.getHours();
-      const hourDegrees = ((hours / 12) * 360) + 90; // 12hrs in 360deg 
+      const hourDegrees = ((hours / 12) * 360) + 90; // 12hrs in 360deg
       hourHand.style.transform = `rotate(${hourDegrees}deg)`;
 
-
-      
       digiSec.innerText = seconds
-      
-      digiMin.innerText = minutes
- 
+
+      const twoDigit = minutes < 10 ? `0${minutes}` : minutes
+      digiMin.innerText = twoDigit
+
       digiHr.innerText = hours
     }
 
-  setInterval(setDate, 1000);
+    // function removeT(){
 
+    //   minsHand.removeAttribute(transform)
+    // }
+
+  setInterval(setDate, 1000);
+  // setInterval(removeT, 59000);
 
   </script>
 </body>
